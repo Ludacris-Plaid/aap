@@ -160,9 +160,16 @@ def new_post():
     if not session.get('logged_in'):
         abort(403)
     try:
+        logger.debug(f"Received form data: {request.form}")
+        logger.debug(f"Received files: {request.files}")
         title = request.form['title']
+        if not title:
+            raise ValueError("Title is required")
+        content = request.form.get('body') or request.form.get('body_fallback')
+        if not content:
+            raise ValueError("Post content is required")
         content = bleach.clean(
-            request.form.get('body') or request.form.get('body_fallback'),
+            content,
             tags=['p', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'h1', 'h2', 'h3', 'blockquote'],
             attributes={'a': ['href', 'title']},
             styles=[],
@@ -176,20 +183,24 @@ def new_post():
         thumbnail_file = request.files.get('thumbnail')
         if thumbnail_file and allowed_file(thumbnail_file.filename):
             thumb_filename = secure_filename(thumbnail_file.filename)
+            logger.debug(f"Saving thumbnail: {thumb_filename}")
             thumbnail_file.save(os.path.join(app.config['UPLOAD_FOLDER'], thumb_filename))
 
         video_filename = None
         video_file = request.files.get('video')
         if video_file and allowed_file(video_file.filename):
             video_filename = secure_filename(video_file.filename)
+            logger.debug(f"Saving video: {video_filename}")
             video_file.save(os.path.join(app.config['UPLOAD_FOLDER'], video_filename))
 
         audio_filename = None
         audio_file = request.files.get('audio')
         if audio_file and allowed_file(audio_file.filename):
             audio_filename = secure_filename(audio_file.filename)
+            logger.debug(f"Saving audio: {audio_filename}")
             audio_file.save(os.path.join(app.config['UPLOAD_FOLDER'], audio_filename))
 
+        logger.debug(f"Writing post to: {POSTS_DIR}/{filename}")
         with open(f'{POSTS_DIR}/{filename}', 'w', encoding='utf-8') as f:
             f.write(f"<h1>{title}</h1>\n{content}")
 
@@ -201,6 +212,7 @@ def new_post():
         if audio_filename:
             meta_content.append(f"audio:{audio_filename}")
         if meta_content:
+            logger.debug(f"Writing meta to: {POSTS_DIR}/{filename}.meta")
             with open(f'{POSTS_DIR}/{filename}.meta', 'w', encoding='utf-8') as f:
                 f.write('\n'.join(meta_content))
 
@@ -208,7 +220,12 @@ def new_post():
         return redirect(url_for('post', post_name=filename.replace('.html', '')))
     except PermissionError as e:
         logger.error(f"PermissionError in new_post: {e}")
-        abort(403)
+        flash("Failed to create post due to permission issues. Please try again.")
+        return redirect(url_for('new_post_page'))
+    except ValueError as e:
+        logger.error(f"ValueError in new_post: {e}")
+        flash(str(e))
+        return redirect(url_for('new_post_page'))
     except Exception as e:
         logger.error(f"Error in new_post: {e}")
         flash("Failed to create post. Please try again.")
