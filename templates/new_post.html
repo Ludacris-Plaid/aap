@@ -22,7 +22,15 @@
 
     <main class="new-post-page">
         <h2>Create New Post</h2>
-        <p>Note: This page requires a backend for full functionality. Contact the admin to create posts.</p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         <form method="POST" enctype="multipart/form-data">
             <label for="title">Title</label>
             <input type="text" name="title" id="title" required>
