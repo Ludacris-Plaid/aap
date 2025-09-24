@@ -93,7 +93,9 @@ def post(post_name):
             content = f.read()
         soup = BeautifulSoup(content, 'html.parser')
         title = soup.find('h1').get_text() if soup.find('h1') else post_name.replace('_', ' ')
-        content_html = str(soup)  # Keep full content including <h1>
+        if soup.find('h1'):
+            soup.find('h1').decompose()  # Remove <h1> from content
+        content_html = str(soup)
         thumb_path = None
         video_path = None
         audio_path = None
