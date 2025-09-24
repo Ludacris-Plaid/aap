@@ -692,4 +692,110 @@ main {
 
 .post-media video, .post-media audio {
     max-width: 100%;
+}body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #003087;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header .logo {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    font-size: 2em;
+}
+
+nav a {
+    color: #FFD100;
+    margin: 0 15px;
+    text-decoration: none;
+    font-family: 'Merriweather', serif;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #FFD100;
+    background-color: #fff;
+    font-size: 1.1em;
+    list-style: none;
+}
+
+#editor {
+    border: 1px solid #ccc;
+    min-height: 200px;
+    background: #fff;
+}
+
+.post-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.post-title {
+    color: #FFD100;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.post-thumbnail {
+    width: auto;
+    height: auto;
+    min-width: 600px;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.post-content {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+}
+
+.post-content p, .post-content ul, .post-content ol, .post-content blockquote {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.post-date {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+.post-media {
+    margin: 20px 0;
+}
+
+.post-media video, .post-media audio {
+    max-width: 100%;
 }
