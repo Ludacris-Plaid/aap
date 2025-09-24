@@ -158,25 +158,27 @@ def logout():
 @app.route('/new_post', methods=['POST'])
 def new_post():
     if not session.get('logged_in'):
+        logger.debug("Session not logged in, redirecting to login")
         abort(403)
     try:
         logger.debug(f"Received form data: {request.form}")
         logger.debug(f"Received files: {request.files}")
-        title = request.form['title']
+        title = request.form.get('title')
         if not title:
             raise ValueError("Title is required")
         content = request.form.get('body') or request.form.get('body_fallback')
-        if not content:
-            raise ValueError("Post content is required")
+        if not content or content.strip() == '<p><br></p>':
+            raise ValueError("Post content cannot be empty")
         content = bleach.clean(
             content,
             tags=['p', 'strong', 'em', 'ul', 'ol', 'li', 'a', 'h1', 'h2', 'h3', 'blockquote'],
             attributes={'a': ['href', 'title']},
-            styles=[],
             protocols=['http', 'https'],
             strip=True
         )
         logger.debug(f"Sanitized content: {content}")
+        if not content:
+            raise ValueError("Content was stripped by sanitization")
         filename = secure_filename(title.replace(' ', '_')) + '.html'
 
         thumb_filename = None
