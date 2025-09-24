@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alberta Politics Blog</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <img src="{{ url_for('static', filename='images/alberta.jpg') }}" alt="Alberta Coat of Arms" class="logo">
+    <h1>Alberta Politics Blog</h1>
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('chat') }}">Chat</a>
+        {% if session.get('logged_in') %}
+            <a href="{{ url_for('new_post') }}">New Post</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Admin Login</a>
+        {% endif %}
+    </nav>
+</header>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<main>
+    <h2>Latest Posts</h2>
+    {% if posts %}
+        {% for post in posts %}
+            <a href="{{ url_for('post', post_name=post.name) }}" class="post-card-link">
+                <div class="post-card">
+                    {% if post.thumbnail %}
+                        <div class="post-thumbnail" data-date="{{ post.date }}">
+                            <img src="{{ url_for('static', filename='images/' + post.thumbnail) }}" alt="Thumbnail">
+                        </div>
+                    {% endif %}
+                    <div class="post-content">
+                        <p>{{ post.snippet|safe }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <p>No posts available.</p>
+    {% endif %}
+</main>
+</body>
+</html>
