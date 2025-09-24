@@ -4,3 +4,4 @@ flask-socketio
 eventlet
 flask-socketio
 eventlet
+beautifulsoup4
