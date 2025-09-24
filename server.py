@@ -91,6 +91,9 @@ def post(post_name):
         logger.debug(f"Accessing post: {post_name}")
         with open(f'{POSTS_DIR}/{post_name}.html', 'r', encoding='utf-8') as f:
             content = f.read()
+        soup = BeautifulSoup(content, 'html.parser')
+        title = soup.find('h1').get_text() if soup.find('h1') else post_name.replace('_', ' ')
+        content_html = str(soup)  # Keep full content including <h1>
         thumb_path = None
         video_path = None
         audio_path = None
@@ -108,7 +111,7 @@ def post(post_name):
                         video_path = line[len('video:'):].strip()
                     elif line.startswith('audio:'):
                         audio_path = line[len('audio:'):].strip()
-        return render_template('post.html', content=content, thumbnail=thumb_path, video=video_path, audio=audio_path, date=formatted_date)
+        return render_template('post.html', title=title, content=content_html, thumbnail=thumb_path, video=video_path, audio=audio_path, date=formatted_date)
     except FileNotFoundError:
         return "Post not found", 404
     except PermissionError:
