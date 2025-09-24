@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session, abort
-from flask_frozen import Freezer
 import os
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -12,13 +11,12 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24).hex()
-freezer = Freezer(app)
+app.secret_key = os.getenv('FLASK_SECRET_KEY', os.urandom(24).hex())
 
 POSTS_DIR = 'posts'
 UPLOAD_FOLDER = 'static/uploads'
-ADMIN_USERNAME = "admin"
-ADMIN_PASSWORD = "supersecret"
+ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'supersecret')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'mp4', 'webm', 'mp3', 'wav'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -34,7 +32,7 @@ def forbidden(e):
     flash("Access denied: Please log in as admin.")
     return redirect(url_for('login_page'))
 
-# Homepage (freezable)
+# Homepage
 @app.route('/')
 def home():
     posts = []
@@ -86,7 +84,7 @@ def home():
         raise
     return render_template('index.html', posts=posts)
 
-# Individual post (freezable)
+# Individual post
 @app.route('/post/<post_name>')
 def post(post_name):
     try:
@@ -116,21 +114,25 @@ def post(post_name):
     except PermissionError:
         abort(403)
 
-# Project page (freezable)
+# Project page
 @app.route('/project')
 def project():
     return render_template('project.html')
 
-# Static pages (freezable)
+# Login page
 @app.route('/login')
 def login_page():
     return render_template('login.html')
 
+# New post page
 @app.route('/new_post')
 def new_post_page():
+    if not session.get('logged_in'):
+        flash("Please log in to create a post.")
+        return redirect(url_for('login_page'))
     return render_template('new_post.html')
 
-# Full login (non-freezable)
+# Login (POST)
 @app.route('/login', methods=['POST'])
 def login():
     username = request.form['username']
@@ -144,7 +146,7 @@ def login():
         flash("Invalid credentials!")
         return redirect(url_for('login_page'))
 
-# Logout (non-freezable)
+# Logout
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
@@ -152,7 +154,7 @@ def logout():
     flash("Logged out successfully!")
     return redirect(url_for('home'))
 
-# New post (non-freezable)
+# New post (POST)
 @app.route('/new_post', methods=['POST'])
 def new_post():
     if not session.get('logged_in'):
@@ -206,13 +208,5 @@ def new_post():
     except PermissionError:
         abort(403)
 
-# Register URLs for freezing
-@freezer.register_generator
-def post_generator():
-    for fname in os.listdir(POSTS_DIR):
-        if fname.endswith('.html'):
-            post_name = fname.replace('.html', '')
-            yield {'post_name': post_name}
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)), debug=True)
