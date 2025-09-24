@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alberta Accountability Project - Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login - Alberta Politics Blog</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+<<<<<<< HEAD
     <header>
         <img src="{{ url_for('static', filename='images/alberta.jpg') }}" alt="Alberta Coat of Arms" class="logo">
         <h1>Alberta Accountability Project</h1>
@@ -16,28 +16,45 @@
             <a href="{{ url_for('chat_page') }}">Chat</a>
         </nav>
     </header>
+=======
+<header>
+    <img src="{{ url_for('static', filename='images/alberta.jpg') }}" alt="Alberta Coat of Arms" class="logo">
+    <h1>Alberta Politics Blog</h1>
+</header>
+>>>>>>> parent of b37a4d6 (initial commit)
 
-    <main class="login-page">
-        <h2>Admin Login</h2>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
+{% include 'ticker.html' %}
+
+<main class="login-page">
+    <h2>Admin Login</h2>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
         <ul class="flashes">
-            {% for message in messages %}
+          {% for message in messages %}
             <li>{{ message }}</li>
-            {% endfor %}
+          {% endfor %}
         </ul>
+<<<<<<< HEAD
         {% endif %}
         {% endwith %}
         <p>Note: This page requires a backend for full functionality. Contact the admin to log in.</p>
         <form method="POST">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" required>
+=======
+      {% endif %}
+    {% endwith %}
+>>>>>>> parent of b37a4d6 (initial commit)
 
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" required>
+    <form method="POST" action="{{ url_for('login') }}">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
 
-            <button type="submit">Login</button>
-        </form>
-    </main>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Login</button>
+    </form>
+</main>
 </body>
 </html>

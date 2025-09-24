@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alberta Accountability Project - Post</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+<<<<<<< HEAD
     <header>
         <img src="{{ url_for('static', filename='images/alberta.jpg') }}" alt="Alberta Coat of Arms" class="logo">
         <h1>Alberta Accountability Project</h1>
@@ -22,43 +22,31 @@
             {% endif %}
         </nav>
     </header>
+=======
+<header>
+    <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+</header>
+>>>>>>> parent of b37a4d6 (initial commit)
 
-    <main>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
 
-        <div class="full-post">
-            {% if thumbnail %}
-            <div class="post-thumbnail-full" data-date="{{ date }}">
-                <img src="{{ url_for('static', filename='uploads/' + thumbnail) }}" alt="Post thumbnail">
-            </div>
-            {% elif video %}
-            <div class="post-thumbnail-full" data-date="{{ date }}">
-                <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Video thumbnail">
-            </div>
-            {% endif %}
-            {% if video %}
-            <video controls class="post-video-full">
-                <source src="{{ url_for('static', filename='uploads/' + video) }}" type="video/{{ video.split('.')[-1] }}">
-            </video>
-            {% endif %}
-            {% if audio %}
-            <audio controls class="post-audio-full">
-                <source src="{{ url_for('static', filename='uploads/' + audio) }}" type="audio/{{ audio.split('.')[-1] }}">
-            </audio>
-            {% endif %}
-            <div class="post-content-full">
-                {{ content | safe }}
-            </div>
-            <a href="{{ url_for('home') }}" class="back-link">Back to Home</a>
+<main class="full-post">
+    {% if thumbnail %}
+        <div class="post-thumbnail-full">
+            <img src="{{ url_for('static', filename='images/' + thumbnail) }}" alt="Post Thumbnail">
         </div>
-    </main>
+    {% endif %}
+    <div class="post-content-full">
+        {{ content | safe }}
+    </div>
+</main>
 </body>
 </html>
