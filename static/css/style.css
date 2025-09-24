@@ -798,4 +798,169 @@ main {
 
 .post-media video, .post-media audio {
     max-width: 100%;
+}body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #003087;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header .logo {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    font-size: 2em;
+}
+
+nav a {
+    color: #FFD100;
+    margin: 0 15px;
+    text-decoration: none;
+    font-family: 'Merriweather', serif;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+}
+
+.flashes li {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left: 4px solid #FFD100;
+    background-color: #fff;
+    font-size: 1.1em;
+    list-style: none;
+}
+
+#editor {
+    border: 1px solid #ccc;
+    min-height: 200px;
+    background: #fff;
+}
+
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.home-container h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: #003087;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.post-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    color: #FFD100;
+    margin-bottom: 10px;
+}
+
+.post-card-title a {
+    color: #FFD100;
+    text-decoration: none;
+}
+
+.post-card-title a:hover {
+    text-decoration: underline;
+}
+
+.post-card-thumbnail {
+    width: auto;
+    height: auto;
+    min-width: 300px;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.post-card-date {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.post-container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.post-title {
+    color: #FFD100;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.post-thumbnail {
+    width: auto;
+    height: auto;
+    min-width: 600px;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.post-content {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+}
+
+.post-content p, .post-content ul, .post-content ol, .post-content blockquote {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.post-date {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 20px;
+}
+
+.post-media {
+    margin: 20px 0;
+}
+
+.post-media video, .post-media audio {
+    max-width: 100%;
 }
