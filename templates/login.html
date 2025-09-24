@@ -13,7 +13,7 @@
         <h1>Alberta Accountability Project</h1>
         <nav>
             <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('chat') }}">Chat</a>
+            <a href="{{ url_for('project') }}">The Project</a>
         </nav>
     </header>
 
@@ -28,6 +28,7 @@
         </ul>
         {% endif %}
         {% endwith %}
+        <p>Note: This page requires a backend for full functionality. Contact the admin to log in.</p>
         <form method="POST">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" required>

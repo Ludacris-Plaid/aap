@@ -170,16 +170,22 @@ main {
     line-height: 1.8;
     color: #003366;
     font-size: 1.1em;
+    text-align: left;
 }
 
 .post-content-full h1 {
     color: #FFD100;
     margin-bottom: 20px;
     font-family: Merriweather, Georgia, serif;
+    text-align: center;
 }
 
-.post-content-full p {
+.post-content-full p, .post-content-full ul, .post-content-full ol {
     margin: 10px 0;
+}
+
+.post-content-full ul, .post-content-full ol {
+    margin-left: 20px;
 }
 
 .post-thumbnail-full {
@@ -281,14 +287,14 @@ main {
     font-family: Merriweather, Georgia, serif;
 }
 
-/* Chat Page */
-.chat-page {
+/* Project Page */
+.project-page {
     max-width: 800px;
     margin: 20px auto;
     padding: 0 15px;
 }
 
-.chat-page h2 {
+.project-page h2 {
     color: #003366;
     border-bottom: 2px solid #FFD100;
     padding-bottom: 5px;
@@ -298,77 +304,21 @@ main {
     font-family: Merriweather, Georgia, serif;
 }
 
-.chat-container {
-    background: #F5F5F5;
-    border: 1px solid #FFD100;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.chat-messages {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-    padding: 10px;
-    background: #ffffff;
-    border: 1px solid #003366;
-    border-radius: 4px;
-}
-
-.message {
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 4px;
-    background: #e8ecef;
-    position: relative;
-}
-
-.message-username {
-    font-weight: bold;
+.project-page h3 {
     color: #003366;
-    margin-right: 10px;
+    margin: 1rem 0;
+    font-family: Merriweather, Georgia, serif;
 }
 
-.message-timestamp {
-    color: #003366;
-    display: inline-block;
+.project-page p, .project-page ul {
+    margin: 10px 0;
 }
 
-.message-timestamp::after {
-    content: attr(data-timestamp);
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 51, 102, 0.75);
-    color: #FFD100;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.project-page ul {
+    margin-left: 20px;
 }
 
-.message:hover .message-timestamp::after {
-    opacity: 1;
-}
-
-.admin-message {
-    background: #FFD100;
-    font-weight: bold;
-}
-
-.chat-form, .username-form {
-    display: flex;
-    gap: 10px;
-}
-
-.chat-form input[type="text"] {
-    flex-grow: 1;
-}
-
-/* Form Styles (shared for new post, login, chat) */
+/* Form Styles (shared for new post, login) */
 form {
     background: #F5F5F5;
     padding: 2rem;
@@ -410,6 +360,22 @@ textarea:focus {
 textarea {
     resize: vertical;
     min-height: 150px;
+}
+
+/* Quill Editor */
+.ql-container {
+    font-family: Roboto, Arial, sans-serif;
+    color: #003366;
+}
+
+.ql-toolbar {
+    border: 1px solid #003366 !important;
+    border-radius: 4px 4px 0 0;
+}
+
+.ql-container {
+    border: 1px solid #003366 !important;
+    border-radius: 0 0 4px 4px;
 }
 
 /* Custom File Input Styling */
@@ -474,21 +440,13 @@ form button[type="submit"]:hover {
         padding: 0 1rem;
     }
 
-    .new-post-page, .login-page, .chat-page {
+    .new-post-page, .login-page, .project-page {
         margin: 1rem;
         padding: 0 1rem;
     }
 
     form {
         padding: 1.5rem;
-    }
-
-    .chat-form {
-        flex-direction: column;
-    }
-
-    .chat-form input[type="text"] {
-        width: 100%;
     }
 }
 
@@ -518,9 +476,5 @@ form button[type="submit"]:hover {
     form button[type="submit"] {
         font-size: 1rem;
         padding: 0.75rem;
-    }
-
-    .chat-messages {
-        max-height: 300px;
     }
 }

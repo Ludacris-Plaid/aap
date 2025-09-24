@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alberta Accountability Project - The Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/alberta.jpg') }}" alt="Alberta Coat of Arms" class="logo">
+        <h1>Alberta Accountability Project</h1>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('project') }}">The Project</a>
+            {% if session.logged_in %}
+            <a href="{{ url_for('new_post_page') }}">New Post</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login_page') }}">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main class="project-page">
+        <h2>About the Alberta Accountability Project</h2>
+        <p>The Alberta Accountability Project is dedicated to promoting transparency, integrity, and accountability in Alberta's political and public spheres. Our mission is to provide a platform for informed discussion, investigative reporting, and community engagement to hold public officials and institutions accountable.</p>
+        <h3>Our Goals</h3>
+        <ul>
+            <li>Expose corruption and mismanagement through in-depth investigations.</li>
+            <li>Amplify community voices and concerns about governance.</li>
+            <li>Educate the public on key issues affecting Alberta's future.</li>
+            <li>Foster a culture of openness and ethical leadership.</li>
+        </ul>
+        <h3>Our Approach</h3>
+        <p>We combine rigorous journalism with community-driven insights, leveraging multimedia content to share stories that matter. From policy analysis to firsthand accounts, we aim to empower Albertans with the knowledge to drive change.</p>
+        <p><strong>Join us</strong> in building a more accountable Alberta. Share your stories, insights, or concerns through our platform or contact us directly.</p>
+    </main>
+</body>
+</html>
