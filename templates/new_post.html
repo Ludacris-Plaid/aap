@@ -38,6 +38,7 @@
             <label for="body">Body</label>
             <div id="editor" style="min-height: 200px;"></div>
             <input type="hidden" name="body" id="body">
+            <textarea name="body_fallback" id="body_fallback" style="display: none;"></textarea>
 
             <label for="thumbnail">Thumbnail Image (optional, .jpg, .png)</label>
             <input type="file" name="thumbnail" id="thumbnail" accept=".jpg,.jpeg,.png">
@@ -53,22 +54,41 @@
     </main>
 
     <script>
-        var quill = new Quill('#editor', {
-            theme: 'snow',
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline'],
-                    ['link', 'blockquote'],
-                    [{'list': 'ordered'}, {'list': 'bullet'}],
-                    [{'header': [1, 2, 3, false]}]
-                ]
-            }
-        });
+        let quill;
+        try {
+            quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        ['bold', 'italic', 'underline'],
+                        ['link', 'blockquote'],
+                        [{'list': 'ordered'}, {'list': 'bullet'}],
+                        [{'header': [1, 2, 3, false]}]
+                    ]
+                }
+            });
+            console.log('Quill editor initialized successfully');
+        } catch (e) {
+            console.error('Failed to initialize Quill editor:', e);
+            document.getElementById('editor').style.display = 'none';
+            document.getElementById('body_fallback').style.display = 'block';
+            document.getElementById('body_fallback').required = true;
+        }
 
         var form = document.querySelector('form');
         form.onsubmit = function() {
-            var body = document.querySelector('#body');
-            body.value = quill.root.innerHTML;
+            try {
+                var body = document.querySelector('#body');
+                if (quill) {
+                    body.value = quill.root.innerHTML;
+                    console.log('Quill content:', body.value);
+                } else {
+                    body.value = document.querySelector('#body_fallback').value;
+                    console.log('Fallback content:', body.value);
+                }
+            } catch (e) {
+                console.error('Error capturing editor content:', e);
+            }
         };
     </script>
 </body>
