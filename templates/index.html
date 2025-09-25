@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alberta Accountability Project</title>
+    <title>Alberta Accountability Project - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=family" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -15,45 +14,45 @@
         <nav>
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('project') }}">The Project</a>
-            {% if session.get('logged_in') %}
-                <a href="{{ url_for('new_post_page') }}">New Post</a>
-                <a href="{{ url_for('logout') }}">Logout</a>
+            {% if session.logged_in %}
+            <a href="{{ url_for('new_post_page') }}">New Post</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
             {% else %}
-                <a href="{{ url_for('login_page') }}">Login</a>
+            <a href="{{ url_for('login_page') }}">Login</a>
             {% endif %}
         </nav>
     </header>
 
-    <main class="home-container">
-        <h2>Latest Posts</h2>
-        {% if posts %}
-            <div class="posts-grid">
-                {% for post in posts %}
-                    <article class="post-card">
-                        <h3 class="post-card-title">
-                            <a href="{{ url_for('post', post_name=post.name) }}">{{ post.name.replace('_', ' ') }}</a>
-                        </h3>
-                        {% if post.thumbnail %}
-                            <a href="{{ url_for('post', post_name=post.name) }}">
-                                <img src="{{ url_for('static', filename='uploads/' + post.thumbnail) }}" alt="Post Thumbnail" class="post-card-thumbnail">
-                            </a>
-                        {% endif %}
-                        <p class="post-card-date">Posted on: {{ post.date }}</p>
-                    </article>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>No posts available.</p>
-        {% endif %}
+    <main>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-            <ul class="flashes">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
         {% endwith %}
+
+        {% for post in posts %}
+        <a href="{{ url_for('post', post_name=post.name) }}" class="post-card-link">
+            <div class="post-card">
+                <div class="post-thumbnail" data-date="{{ post.date }}">
+                    {% if post.thumbnail %}
+                    <img src="{{ url_for('static', filename='uploads/' + post.thumbnail) }}" alt="Post thumbnail">
+                    {% elif post.video %}
+                    <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="Video thumbnail">
+                    {% else %}
+                    <img src="{{ url_for('static', filename='images/placeholder.jpg') }}" alt="No thumbnail">
+                    {% endif %}
+                </div>
+                <div class="post-content">
+                    <h3>{{ post.name.replace('_', ' ') }}</h3>
+                    <p>{{ post.snippet }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
     </main>
 </body>
 </html>
