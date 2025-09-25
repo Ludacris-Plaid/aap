@@ -6,24 +6,30 @@
     <title>Alberta Accountability Project - The Project</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/alberta.css">
 </head>
 <body>
-    <header>
-        <img src="{{ url_for('static', filename='images/alberta.jpg') }}" alt="Alberta Coat of Arms" class="logo">
-        <h1>Alberta Accountability Project</h1>
-        <nav>
-            <a href="{{ url_for('home') }}">Home</a>
-            <a href="{{ url_for('project') }}">The Project</a>
-            {% if session.logged_in %}
-            <a href="{{ url_for('new_post_page') }}">New Post</a>
-            <a href="{{ url_for('logout') }}">Logout</a>
-            {% else %}
-            <a href="{{ url_for('login_page') }}">Login</a>
-            {% endif %}
-        </nav>
+<a href="#main" class="skip-link">Skip to main content</a>
+    
+<header class="site-header brand-header">
+  <div class="container">
+    <div class="site-title">
+      <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image">
+      <span>Alberta Political Blog</span>
+      <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">
+    </div>
+    <nav class="nav">
+      <a href="/index.html">Home</a>
+      <a href="/posts">Posts</a>
+      <a href="/projects">Projects</a>
+      <a href="/about.html">About</a>
+    </nav>
+  </div>
+</header>
+
     </header>
 
-    <main class="project-page">
+    <main id="main" class="project-page">
         <h2>About the Alberta Accountability Project</h2>
         <p>The Alberta Accountability Project is dedicated to promoting transparency, integrity, and accountability in Alberta's political and public spheres. Our mission is to provide a platform for informed discussion, investigative reporting, and community engagement to hold public officials and institutions accountable.</p>
         <h3>Our Goals</h3>
@@ -37,5 +43,13 @@
         <p>We combine rigorous journalism with community-driven insights, leveraging multimedia content to share stories that matter. From policy analysis to firsthand accounts, we aim to empower Albertans with the knowledge to drive change.</p>
         <p><strong>Join us</strong> in building a more accountable Alberta. Share your stories, insights, or concerns through our platform or contact us directly.</p>
     </main>
+
+<footer class="brand-footer">
+  <div class="container text-center">
+    <p>&copy; 2025 Alberta Political Blog. All Rights Reserved.</p>
+    <p class="footer-small">Proudly featuring the <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image"> and the <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">.</p>
+  </div>
+</footer>
+
 </body>
 </html>
