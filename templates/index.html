@@ -30,14 +30,15 @@
             <div class="posts-grid">
                 {% for post in posts %}
                     <article class="post-card">
-                        <h3 class="post-card-title">
-                            <a href="{{ url_for('post', post_name=post.name) }}">{{ post.name.replace('_', ' ') }}</a>
-                        </h3>
                         {% if post.thumbnail %}
                             <a href="{{ url_for('post', post_name=post.name) }}">
                                 <img src="{{ url_for('static', filename='uploads/' + post.thumbnail) }}" alt="Post Thumbnail" class="post-card-thumbnail">
                             </a>
                         {% endif %}
+                        <h3 class="post-card-title">
+                            <a href="{{ url_for('post', post_name=post.name) }}">{{ post.name.replace('_', ' ') }}</a>
+                        </h3>
+                        <p class="post-card-snippet">{{ post.snippet }}</p>
                         <p class="post-card-date">Posted on: {{ post.date }}</p>
                     </article>
                 {% endfor %}
