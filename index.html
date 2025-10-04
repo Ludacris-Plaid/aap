@@ -1,74 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alberta Accountability Project</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=family" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/alberta.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alberta Accountability Project - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/alberta.css">
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to main content</a>
+  <a href="#main" class="skip-link">Skip to main content</a>
     
-<header class="site-header brand-header">
-  <div class="container">
-    <div class="site-title">
-      <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image">
-      <span>Alberta Political Blog</span>
-      <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">
+  <header class="site-header brand-header">
+    <div class="container">
+      <div class="site-title">
+        <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image">
+        <span>Alberta Political Blog</span>
+        <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">
+      </div>
+      <nav class="nav">
+        <a href="/index.html" class="active">Home</a>
+        <a href="/posts">Posts</a>
+        <a href="/projects">Projects</a>
+        <a href="/about.html">About</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <a href="/index.html">Home</a>
-      <a href="/posts">Posts</a>
-      <a href="/projects">Projects</a>
-      <a href="/about.html">About</a>
-    </nav>
-  </div>
-</header>
+  </header>
 
-    </header>
+  <main id="main" class="container">
+    <section class="hero">
+      <h1>Welcome to the Alberta Accountability Project</h1>
+      <p class="lead">Investigations, insights, and stories that matter for Alberta’s future.</p>
+    </section>
 
-    <main id="main" class="home-container">
-        <h2>Latest Posts</h2>
-        {% if posts %}
-            <div class="posts-grid">
-                {% for post in posts %}
-                    <article class="post-card">
-                        {% if post.thumbnail %}
-                            <a href="{{ url_for('post', post_name=post.name) }}">
-                                <img src="{{ url_for('static', filename='uploads/' + post.thumbnail) }}" alt="Post Thumbnail" class="brand-image post-card-thumbnail">
-                            </a>
-                        {% endif %}
-                        <h3 class="post-card-title">
-                            <a href="{{ url_for('post', post_name=post.name) }}">{{ post.name.replace('_', ' ') }}</a>
-                        </h3>
-                        <p class="post-card-snippet">{{ post.snippet }}</p>
-                        <p class="post-card-date">Posted on: {{ post.date }}</p>
-                    </article>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>No posts available.</p>
-        {% endif %}
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flashes">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        {% endwith %}
-    </main>
+    <section class="post-list">
+      <!-- Example card 1 -->
+      <article class="post">
+        <div class="thumb">
+          <img src="/assets/images/sample-thumb1.jpg" alt="Sample Post Thumbnail">
+          <div class="caption">Jan 25, 2025</div>
+        </div>
+        <h2><a href="/posts/sample-post-1.html">Corruption in Public Office: What We Found</a></h2>
+        <p class="meta">By Admin | Category: Politics</p>
+        <p>Our deep-dive into recent government contracts reveals troubling connections and unanswered questions...</p>
+        <a href="/posts/sample-post-1.html" class="btn btn-outline">Read More</a>
+      </article>
 
-<footer class="brand-footer">
-  <div class="container text-center">
-    <p>&copy; 2025 Alberta Political Blog. All Rights Reserved.</p>
-    <p class="footer-small">Proudly featuring the <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image"> and the <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">.</p>
-  </div>
-</footer>
+      <!-- Example card 2 -->
+      <article class="post">
+        <div class="thumb">
+          <img src="/assets/images/sample-thumb2.jpg" alt="Sample Post Thumbnail">
+          <div class="caption">Feb 10, 2025</div>
+        </div>
+        <h2><a href="/posts/sample-post-2.html">Community Voices: Healthcare in Crisis</a></h2>
+        <p class="meta">By Guest Contributor | Category: Health</p>
+        <p>Albertans share firsthand experiences with the healthcare system — highlighting failures and calling for accountability...</p>
+        <a href="/posts/sample-post-2.html" class="btn btn-outline">Read More</a>
+      </article>
 
+      <!-- Example card 3 -->
+      <article class="post">
+        <div class="thumb">
+          <img src="/assets/images/sample-thumb3.jpg" alt="Sample Post Thumbnail">
+          <div class="caption">Mar 01, 2025</div>
+        </div>
+        <h2><a href="/posts/sample-post-3.html">Education Funding: Where’s the Money Going?</a></h2>
+        <p class="meta">By Admin | Category: Education</p>
+        <p>A closer look at Alberta’s education budget and the widening gap between promises and delivery...</p>
+        <a href="/posts/sample-post-3.html" class="btn btn-outline">Read More</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="brand-footer">
+    <div class="container text-center">
+      <p>&copy; 2025 Alberta Political Blog. All Rights Reserved.</p>
+      <p class="footer-small">Proudly featuring the 
+        <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image"> 
+        and the 
+        <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">.
+      </p>
+    </div>
+  </footer>
 </body>
 </html>
