@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alberta Accountability Project - New Post</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <link rel="stylesheet" href="/assets/css/alberta.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+    
+  <header class="site-header brand-header">
+    <div class="container">
+      <div class="site-title">
+        <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image">
+        <span>Alberta Political Blog</span>
+        <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">
+      </div>
+      <nav class="nav">
+        <a href="/index.html">Home</a>
+        <a href="/posts">Posts</a>
+        <a href="/projects">Projects</a>
+        <a href="/about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="new-post-page container">
+    <h2>Create New Post</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" enctype="multipart/form-data">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" required>
+
+      <label for="body">Body</label>
+      <div id="editor"></div>
+      <input type="hidden" name="body" id="body">
+      <textarea name="body_fallback" id="body_fallback"></textarea>
+
+      <label for="thumbnail">Thumbnail Image (optional, .jpg, .png)</label>
+      <input type="file" name="thumbnail" id="thumbnail" accept=".jpg,.jpeg,.png">
+
+      <label for="video">Video (optional, .mp4, .webm)</label>
+      <input type="file" name="video" id="video" accept=".mp4,.webm">
+
+      <label for="audio">Audio Clip (optional, .mp3, .wav)</label>
+      <input type="file" name="audio" id="audio" accept=".mp3,.wav">
+
+      <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+  </main>
+
+  <script>
+    let quill;
+    try {
+      quill = new Quill('#editor', {
+        theme: 'snow',
+        modules: {
+          toolbar: [
+            ['bold', 'italic', 'underline'],
+            ['link', 'blockquote'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'header': [1, 2, 3, false] }]
+          ]
+        }
+      });
+      console.log('Quill editor initialized successfully');
+    } catch (e) {
+      console.error('Failed to initialize Quill editor:', e);
+      document.getElementById('editor').style.display = 'none';
+      document.getElementById('body_fallback').style.display = 'block';
+      document.getElementById('body_fallback').required = true;
+    }
+
+    var form = document.querySelector('form');
+    form.onsubmit = function() {
+      try {
+        var body = document.querySelector('#body');
+        if (quill) {
+          body.value = quill.root.innerHTML;
+        } else {
+          body.value = document.querySelector('#body_fallback').value;
+        }
+      } catch (e) {
+        console.error('Error capturing editor content:', e);
+      }
+    };
+  </script>
+
+  <footer class="brand-footer">
+    <div class="container text-center">
+      <p>&copy; 2025 Alberta Political Blog. All Rights Reserved.</p>
+      <p class="footer-small">Proudly featuring the 
+        <img src="/assets/images/alberta-coat-of-arms.png" alt="Alberta Coat of Arms" class="brand-image"> 
+        and the 
+        <img src="/assets/images/alberta-flag.png" alt="Alberta Flag" class="brand-image">.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>
